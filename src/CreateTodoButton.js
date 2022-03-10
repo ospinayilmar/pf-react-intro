@@ -1,7 +1,17 @@
 import React from "react";
+import './CreateTodoButton.css';
 
 function CreateTodoButton() {
-    return (<button>+</button>);
+    const onClickButton = (msg) => {
+        alert(msg);
+    };
+
+    return (
+        <button 
+            className="CreateTodoButton"
+            onClick={() => onClickButton("Quieres crear una nueva tarea")}
+            >+</button>
+    );
 }
 
 export { CreateTodoButton };

@@ -5,14 +5,13 @@ import { TodoList } from "./TodoList";
 import { TodoItem } from "./TodoItem";
 import { CreateTodoButton } from "./CreateTodoButton";
 
-// import logo from './logo.svg';
 // import './App.css';
 
 const todos = [
   {text: 'Reparar Macbook de Germán', completed: false},
-  {text: 'Llevar escalera a la normal', completed: false},
+  {text: 'Llevar escalera a la normal', completed: true},
   {text: 'Hablar con Carlos sobre impresoras para comprar', completed: false},
-  {text: 'Hablar con Carlos sobre impresoras', completed: false},
+  {text: 'Hablar con Carlos sobre impresoras', completed: true},
 ];
 
 function App() {
@@ -24,7 +23,11 @@ function App() {
 
       <TodoList>
         {todos.map(todo => (
-            <TodoItem key={todo.text} text={todo.text} />
+            <TodoItem 
+              key={todo.text}
+              text={todo.text}
+              completed = {todo.completed}
+            />
           ))}
       </TodoList>
 
