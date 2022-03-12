@@ -5,6 +5,7 @@ function TodoItem(props) {
     const onComplete = () => {
         alert('Tarea completada ' + props.text);
     };
+    
     const onDelete = () => {
         alert('Tarea eliminada ' + props.text);
     };
