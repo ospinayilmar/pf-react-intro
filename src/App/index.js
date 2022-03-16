@@ -1,65 +1,77 @@
-import React from "react";
-import { AppUI } from "./AppUI";
+import React from 'react';
+import { AppUI } from './AppUI';
 
-const defaultTodos_old = [ 
-  {text: 'Reparar Macbook de Germán', completed: false}, 
-  {text: 'Llevar escalera a la normal', completed: false}, 
-  {text: 'Hablar con Carlos sobre impresoras para comprar', completed: false}, 
-  {text: 'Hablar con Carlos sobre impresoras', completed: true}, 
-];
-
-const defaultTodos = [
-  { text: 'Cortar cebolla', completed: true },
-  { text: 'Tomar el cursso de intro a React', completed: false },
-  { text: 'Llorar con la llorona', completed: true },
-  { text: 'LALALALAA', completed: false },
-];
+// const defaultTodos = [ 
+//   {text: 'Reparar Macbook de Germán', completed: false}, 
+//   {text: 'Llevar escalera a la normal', completed: false}, 
+//   {text: 'Hablar con Carlos sobre impresoras para comprar', completed: false}, 
+//   {text: 'Hablar con Carlos sobre impresoras', completed: true}, 
+// ];
 
 function useLocalStorage(itemName, initialValue) {
-  const localStorageItem = localStorage.getItem(itemName);
-  console.log(localStorageItem);
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [item, setItem] = React.useState(initialValue);
+  
+  React.useEffect(() => {
+    setTimeout(() => {
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
+        
+        if (!localStorageItem) {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        } else {
+          parsedItem = JSON.parse(localStorageItem);
+        }
 
-  let parsedItem;
-  
-  if(!localStorageItem) {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  } else {
-    parsedItem = JSON.parse(localStorageItem);
-  }
-  
-  const [item, setItem] = React.useState(parsedItem);
+        setItem(parsedItem);
+        setLoading(false);
+      } catch(error) {
+        setError(error);
+      }
+    }, 1000);
+  });
   
   const saveItem = (newItem) => {
-    const stringifiedItem = JSON.stringify(newItem);
-    localStorage.setItem(itemName, stringifiedItem);
-    setItem(newItem);
+    try {
+      const stringifiedItem = JSON.stringify(newItem);
+      localStorage.setItem(itemName, stringifiedItem);
+      setItem(newItem);
+    } catch(error) {
+      setError(error);
+    }
   };
 
-  return [
+  return {
     item,
     saveItem,
-  ];
+    loading,
+    error,
+  };
 }
 
 function App() {
-  // const [patito, savePatito] = useLocalStorage('PATITO_V1', 'FERNANDO');
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+  const {
+    item: todos,
+    saveItem: saveTodos,
+    loading,
+    error,
+  } = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
-  const completedTodos =  todos.filter(todo => !!todo.completed).length;
+  const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
 
   let searchedTodos = [];
 
-  if(searchValue.length <= 0){
+  if (!searchValue.length >= 1) {
     searchedTodos = todos;
-  }
-  else {
+  } else {
     searchedTodos = todos.filter(todo => {
       const todoText = todo.text.toLowerCase();
       const searchText = searchValue.toLowerCase();
-
       return todoText.includes(searchText);
     });
   }
@@ -78,9 +90,10 @@ function App() {
     saveTodos(newTodos);
   };
 
-
   return (
     <AppUI
+      loading={loading}
+      error={error}
       totalTodos={totalTodos}
       completedTodos={completedTodos}
       searchValue={searchValue}
