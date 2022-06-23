@@ -1,18 +1,11 @@
 import React from "react";
 import { AppUI } from "./AppUI";
 
-// const defaultTodos_old = [ 
-//   {text: 'Reparar Macbook de Germán', completed: false}, 
-//   {text: 'Llevar escalera a la normal', completed: false}, 
-//   {text: 'Hablar con Carlos sobre impresoras para comprar', completed: false}, 
-//   {text: 'Reunión con Kevyn para la instalación de juan Camilo', completed: true}, 
-// ];
-
-const defaultTodos = [
-  { text: 'Cortar cebolla', completed: true },
-  { text: 'Tomar el cursso de intro a React', completed: false },
-  { text: 'Llorar con la llorona', completed: true },
-  { text: 'LALALALAA', completed: false },
+const defaultTodos = [ 
+  {text: 'Reparar Macbook de Germán', completed: false}, 
+  {text: 'Llevar escalera a la normal', completed: false}, 
+  {text: 'Hablar con Carlos sobre impresoras para comprar', completed: false}, 
+  {text: 'Reunión con Kevyn para la instalación de juan Camilo', completed: true}, 
 ];
 
 function useLocalStorage(itemName, initialValue) {
