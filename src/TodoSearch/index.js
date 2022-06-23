@@ -6,12 +6,11 @@ function TodoSearch({ searchValue, setSearchValue }) {
     console.log("El cajón cambió " + event.target.value);
     setSearchValue(event.target.value);
   };
-
     return(
       <React.Fragment>
         <input 
           className="TodoSearch"
-          placeholder="Macbook Pro de 13''"
+          placeholder="Escribe una pista para iniciar la búsqueda"
           value={searchValue}
           onChange={onSearchValueChange}
         />
