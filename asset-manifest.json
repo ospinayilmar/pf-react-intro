@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pf-react-intro/static/css/main.0f4031cc.css",
+    "main.js": "/pf-react-intro/static/js/main.13165317.js",
+    "index.html": "/pf-react-intro/index.html",
+    "main.0f4031cc.css.map": "/pf-react-intro/static/css/main.0f4031cc.css.map",
+    "main.13165317.js.map": "/pf-react-intro/static/js/main.13165317.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0f4031cc.css",
+    "static/js/main.13165317.js"
+  ]
+}
